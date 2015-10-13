@@ -40,8 +40,6 @@ RUN inveniomanage collect > /dev/null
 
 RUN inveniomanage assets build --no-cache --production
 
-RUN pip install watchdog==0.8.3
-
 # Database
 RUN service mysql start && \
     service redis-server start && \
@@ -52,6 +50,9 @@ RUN service mysql start && \
     inveniomanage database init --user=root --password= --yes-i-know && \
     inveniomanage database create --quiet && \
     inveniomanage records create -t marcxml /src/inspire-next/inspire/demosite/data/demo-records.xml
+
+# Dev helpers
+RUN pip install ipython
 
 CMD service mysql start && \
     service redis-server start && \
@@ -66,7 +67,7 @@ CMD service mysql start && \
      else \
       inveniomanage config set CFG_SITE_SECURE_URL http://0.0.0.0:4000; \
      fi) && \
-    inveniomanage runserver && \
+    (inveniomanage runserver &) && \
     bash
 
 # TODO replace CMD with `CMD honcho start`

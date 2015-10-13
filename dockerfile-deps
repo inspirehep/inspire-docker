@@ -68,8 +68,6 @@ RUN npm update && npm install -g bower less clean-css uglify-js requirejs
 RUN pip install git+https://github.com/inveniosoftware/beard@master#egg=beard
 
 # Invenio
-RUN mkdir /src && \
-    cd /src/ && \
+RUN mkdir /src && cd /src/ && \
     git clone --branch=labs https://github.com/inspirehep/invenio.git && \
-    cd invenio && \
-    pip install -e .
+    cd invenio && pip install -e .
