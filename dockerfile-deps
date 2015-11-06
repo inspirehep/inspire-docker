@@ -66,6 +66,9 @@ RUN apt-get install -y mysql-server-"${MYSQL_VERSION}"
 RUN npm update && npm install -g bower less clean-css uglify-js requirejs
 
 # Beard
+RUN pip install --upgrade pip
+RUN pip install numpy
+RUN pip install scipy
 RUN pip install git+https://github.com/inveniosoftware/beard@master#egg=beard
 
 # Invenio
