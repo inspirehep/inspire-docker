@@ -35,7 +35,8 @@ xvfb \
 libblas-dev \
 liblapack-dev \
 gfortran \
-imagemagick
+imagemagick \
+xpdf
 
 # Download ElasticSearch
 RUN wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-"${ES_VERSION}".zip && \
