@@ -11,5 +11,6 @@ Then to grab current image and run tests from your development overlay:
 
 ```shell
 cdvirtualenv src/inspire-next
+docker pull inspirehep/inspire:next
 docker run -v `pwd`:`pwd` inspirehep/inspire:next /bin/bash -c "cd `pwd` && ./install.sh && python setup.py test"
 ```
