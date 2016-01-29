@@ -6,5 +6,6 @@ This repository is a submodule for [inspirehep/inspire-next](https://www.github.
 If you want to test INSPIRE in the same way as it is tested in Travis you can simply:
 ```
 $ cd <source directory of inspirehep repo>
+$ docker pull inspirehep/inspire:next
 $ docker run -v `pwd`:`pwd` inspirehep/inspire:next /bin/bash -c "cd `pwd` && ./install.sh && python setup.py test"
 ```
