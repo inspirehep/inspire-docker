@@ -14,3 +14,9 @@ cdvirtualenv src/inspire-next
 docker pull inspirehep/inspire:next
 docker run -v `pwd`:`pwd` inspirehep/inspire:next /bin/bash -c "cd `pwd` && ./install.sh && python setup.py test"
 ```
+
+Then access the docker container interactively with a shell:
+
+```shell
+docker run -it -v `pwd`:`pwd` inspirehep/inspire:next /bin/bash
+```
