@@ -2,8 +2,6 @@ FROM ubuntu:trusty
 
 EXPOSE 4000
 
-ENV ES_VERSION 2.1.1
-ENV MYSQL_VERSION 5.6
 ENV NODE_MODULES /usr/local/lib/node_modules/
 ENV DISPLAY :99.0
 
@@ -14,8 +12,6 @@ git \
 wget \
 curl \
 unzip \
-nodejs \
-npm \
 default-jre \
 libmysqlclient-dev \
 libxml2-dev \
@@ -24,20 +20,24 @@ libjpeg-dev \
 libfreetype6-dev \
 libtiff-dev \
 libffi-dev \
+libssl-dev \
 software-properties-common \
 python-dev \
 python-pip \
 # Only for testing
-firefox \
 chromium-browser \
-xvfb \
 libblas-dev \
 liblapack-dev \
 gfortran \
 imagemagick \
 xpdf
 
+# Download nodejs
+RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
+apt-get install -y nodejs
+
 # Download ElasticSearch
+ENV ES_VERSION 2.1.1
 RUN wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-"${ES_VERSION}".zip && \
     unzip elasticsearch-"${ES_VERSION}".zip && \
     rm elasticsearch-"${ES_VERSION}".zip && \
@@ -46,14 +46,13 @@ RUN wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-"
     bin/plugin install org.codelibs/elasticsearch-reindexing/"${ES_VERSION}"
 
 # Download chromedriver
-RUN wget http://chromedriver.storage.googleapis.com/2.12/chromedriver_linux64.zip && \
+ENV CHROMEDRIVER_VERSION 2.21
+RUN wget http://chromedriver.storage.googleapis.com/"${CHROMEDRIVER_VERSION}"/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/bin && \
     chmod 755 /usr/bin/chromedriver
 
-# For the new Nodejs to work
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-
 # Configure and install MySQL
+ENV MYSQL_VERSION 5.6
 RUN { \
     echo mysql-community-server mysql-community-server/data-dir select ''; \
     echo mysql-community-server mysql-community-server/root-pass password ''; \
