@@ -1,22 +1,29 @@
 # inspire-docker
 [![Build Status](https://travis-ci.org/inspirehep/inspire-docker.svg?branch=master "Build Status")](https://travis-ci.org/inspirehep/inspire-docker/branches?branch=master)
 
-This repository is a submodule for [inspirehep/inspire-next](https://www.github.com/inspirehep/inspire-next) for keeping and building its docker files.
-
 ## Usage
 
 Install Docker: https://docs.docker.com/engine/installation/
 
-Then to grab current image and run tests from your development overlay:
+To grab a Python image having (almost) all the dependencies cached for `pip-accel`
+In which you can install the overlay:
 
 ```shell
-cdvirtualenv src/inspire-next
-docker pull inspirehep/inspire:next
-docker run -v `pwd`:`pwd` inspirehep/inspire:next /bin/bash -c "cd `pwd` && ./install.sh && python setup.py test"
+docker pull inspirehep/python_base:latest
 ```
 
-Then access the docker container interactively with a shell:
+If you want a specific Python version you can do:
+```shell
+docker pull inspirehep/python_base:python2
+```
+or
+```shell
+docker pull inspirehep/python_base:python3
+```
+
+To grab an Elasticsearch image having all the plugins needed for running
+the Overlay do:
 
 ```shell
-docker run -it -v `pwd`:`pwd` inspirehep/inspire:next /bin/bash
+docker pull inspirehep/elasticsearch:latest
 ```
