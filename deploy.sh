@@ -1,4 +1,5 @@
 #!/bin/bash
 
-echo $DOCKER_VERSION
-echo "I should push: ${TAG}"
+echo "Pushing ${TAG}"
+# docker login --password=$DOCKER_PASSWORD --email=$DOCKER_EMAIL --username=$DOCKER_USERNAME
+# docker push ${TAG}

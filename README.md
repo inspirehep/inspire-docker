@@ -14,12 +14,10 @@ docker pull inspirehep/python_base:latest
 
 If you want a specific Python version you can do:
 ```shell
-docker pull inspirehep/python_base:python2
+docker pull inspirehep/python_base:python2.7
 ```
-or
-```shell
-docker pull inspirehep/python_base:python3
-```
+
+Python 3.5 is still not compatible.
 
 To grab an Elasticsearch image having all the plugins needed for running
 the Overlay do:

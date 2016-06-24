@@ -30,7 +30,7 @@ matrix:
       - DOCKERFILE=elasticsearch/Dockerfile 
  
 script:
-  - true
+  - travis_retry docker build -f $DOCKERFILE $ARGS -t $TAG .
 
 deploy:
   provider: script
