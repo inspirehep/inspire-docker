@@ -24,4 +24,5 @@ FROM elasticsearch
 
 RUN plugin install analysis-icu && \
     plugin install mobz/elasticsearch-head && \
-    plugin install royrusso/elasticsearch-HQ
+    plugin install royrusso/elasticsearch-HQ && \
+    plugin install analysis-phonetic
