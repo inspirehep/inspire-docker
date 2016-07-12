@@ -23,9 +23,6 @@ docker login \
     "--email=$DOCKER_EMAIL" \
     "--username=$DOCKER_USERNAME"
 
-echo "Tagging already build docker image $TAG with $REMOTE_TAG"
-docker tag "$TAG" "$REMOTE_TAG"
-
 echo "Pushing image to ${REMOTE_TAG}"
 docker push ${REMOTE_TAG}
 
