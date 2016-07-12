@@ -19,42 +19,40 @@
 # In applying this licence, CERN does not waive the privileges and immunities
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
-FROM python:3.5
+FROM centos
 
-RUN apt-get update --fix-missing && \
-    apt-get install -y \
-      python-virtualenv \
-      python-dev \
-      git \
-      nodejs \
-      npm \
-      libpq-dev \
-      build-essential \
-      libxml2-dev \
-      libxslt1-dev \
-      libjpeg-dev \
-      libfreetype6-dev \
-      libtiff-dev \
-      libmagickwand-dev \
-      imagemagick \
-      ghostscript \
-      xpdf \
-      libffi-dev \
-      liblzma-dev && \
-    ln -s /usr/bin/nodejs /usr/bin/node && \
-    npm install -g \
-      npm \
-      node-sass \
-      clean-css \
-      requirejs \
-      uglify-js
+RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN yum update -y
+RUN yum install -y \
+        ImageMagick \
+        file \
+        git \
+        libffi-devel \
+        libxml2-devel \
+        libxslt-devel \
+        nodejs \
+        npm \
+        poppler-utils \
+        postgresql \
+        postgresql-libs \
+        python-pip \
+        python-virtualenv \
+        python-virtualenvwrapper \
+        wget
+RUN npm install -g npm
+RUN npm install -g \
+        node-sass \
+        clean-css \
+        requirejs \
+        uglify-js
 
 ARG INSPIRE_PYTHON_VERSION
 ENV INSPIRE_PYTHON_VERSION ${INSPIRE_PYTHON_VERSION:-2.7}
 
 RUN virtualenv /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     . /tmpvenv/bin/activate && \
-    pip install --upgrade setuptools pip-accel requirements-builder && \
+    pip install --upgrade pip setuptools && \
+    pip install --upgrade pip-accel requirements-builder && \
     cd /tmp && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/requirements.txt && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/setup.py && \
