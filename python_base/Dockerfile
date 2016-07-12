@@ -35,6 +35,7 @@ RUN yum install -y \
         poppler-utils \
         postgresql \
         postgresql-libs \
+        postgresql-devel \
         python-pip \
         python-virtualenv \
         python-virtualenvwrapper \
@@ -60,7 +61,7 @@ RUN virtualenv /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     mkdir inspirehep/ && cd inspirehep/ && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/inspirehep/version.py && cd /tmp && \
     egrep -v '^-e \.\[[a-z]+\]$' requirements.txt >> requirements-all.txt && \
-    requirements-builder setup.py -e all >> requirements-all.txt && \
+    requirements-builder setup.py -e all -e postgresql >> requirements-all.txt && \
     pip-accel install -r requirements-all.txt --pre && \
     deactivate && \
     rm -rf /tmpvenv && \
