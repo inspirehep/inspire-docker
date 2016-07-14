@@ -1,5 +1,11 @@
 #!/bin/bash -e
 
+
+retry() {
+    "$@" || "$@"
+}
+
+
 # fail on unset variables expansion
 set -o nounset
 
@@ -10,4 +16,4 @@ else
 fi
 
 echo "Building image $TAG"
-docker build -f "$DOCKERFILE" $ARGS -t "$TAG" .
+retry docker build -f "$DOCKERFILE" $ARGS -t "$TAG" .

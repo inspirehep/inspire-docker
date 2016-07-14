@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+retry() {
+    "$@" || "$@"
+}
+
 
 if [[ "$DOCKER_USERNAME" == "" ]] || [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then
     echo "Not in an official branch, skipping deploy"
@@ -18,13 +22,13 @@ else
 fi
 
 echo "Logging into Docker Hub with user $DOCKER_USERNAME"
-docker login \
+retry docker login \
     "--password=$DOCKER_PASSWORD" \
     "--email=$DOCKER_EMAIL" \
     "--username=$DOCKER_USERNAME"
 
 echo "Pushing image to ${REMOTE_TAG}"
-docker push ${REMOTE_TAG}
+retry docker push ${REMOTE_TAG}
 
 echo "Logging out"
-docker logout
+retry docker logout
