@@ -1,8 +1,8 @@
-#!/bin/bash -xe
+#!/bin/bash -e
 
 
 retry() {
-    "$@" || "$@"
+    "$@" || "$@" || exit $?
 }
 
 
@@ -63,8 +63,8 @@ main() {
         fi
     fi
     prepare
-    retry run_unit_tests
-    retry run_integration_tests
+    run_unit_tests
+    run_integration_tests
 }
 
 
