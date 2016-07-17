@@ -38,4 +38,4 @@ matrix:
 
 script:
   - chmod +x *.sh
-  - ./build.sh && ./test.sh && ./deploy.sh
+  - ./build.sh && ./test.sh -v && ./deploy.sh
