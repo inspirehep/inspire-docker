@@ -58,7 +58,7 @@ utils.in(){
 
 
 get_images(){
-    grep -oP "(?<=image: ).*" "$NEXT_DIR/"services.yml
+    grep -ohP "(?<=image: ).*" "$NEXT_DIR/"*.yml | sort | uniq
 }
 
 
