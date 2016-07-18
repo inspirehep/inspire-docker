@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -xe
 
 
 retry() {
@@ -18,47 +18,53 @@ prepare() {
     export PATH=$PATH:/usr/local/bin
 }
 
+
 cleanup_env() {
     docker-compose kill
     docker-compose rm -f
     sudo rm -rf /tmp/virtualenv
 }
 
+
 run_unit_tests() {
     echo "###### Running unit tests"
+    cleanup_env
     echo "Available images"
     docker images
     retry docker-compose -f docker-compose.deps.yml run --rm pip
     docker-compose -f docker-compose.deps.yml run --rm assets
     docker-compose -f docker-compose.test.yml run --rm unit
+    cleanup_env
 }
+
 
 run_integration_tests() {
     echo "###### Running integraiton tests"
+    cleanup_env
     echo "Available images"
     docker images
     retry docker-compose -f docker-compose.deps.yml run --rm pip
     docker-compose -f docker-compose.deps.yml run --rm assets
     docker-compose -f docker-compose.test.yml run --rm integration
+    cleanup_env
 }
 
 
 main() {
     if [[ "$TRAVIS_BRANCH" != "master" ]]; then
         TEST_TAG="$DOCKER_PROJECT:$DOCKER_IMAGE_TAG"
-        LATEST_TAG="$DOCKER_PROJECT:latest"
         CUR_TAG="$DOCKER_PROJECT:dev.$TRAVIS_BRANCH-$DOCKER_IMAGE_TAG"
         echo "Adding tag $TEST_TAG to the image for the testing"
         docker tag "$CUR_TAG" "$TEST_TAG"
-        echo "Adding latest tag $LATEST_TAG to the image for the testing"
-        docker tag "$CUR_TAG" "$LATEST_TAG"
+        if [[ "$DOCKER_IMAGE_TAG" != "latest" ]]; then
+            LATEST_TAG="$DOCKER_PROJECT:latest"
+            echo "Adding latest tag $LATEST_TAG to the image for the testing"
+            docker tag "$CUR_TAG" "$LATEST_TAG"
+        fi
     fi
     prepare
-    cleanup_env
-    run_unit_tests
-    cleanup_env
-    run_integration_tests
-    cleanup_env
+    retry run_unit_tests
+    retry run_integration_tests
 }
 
 
