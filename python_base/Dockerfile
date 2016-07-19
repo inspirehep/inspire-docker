@@ -38,8 +38,8 @@ RUN yum install -y \
         postgresql-devel \
         python-pip \
         python-virtualenv \
-        python-virtualenvwrapper \
-        wget
+        wget \
+        which
 RUN npm install -g npm
 RUN npm install -g \
         node-sass \
@@ -64,6 +64,7 @@ RUN virtualenv /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     requirements-builder setup.py -e all -e postgresql >> requirements-all.txt && \
     pip wheel --wheel-dir /pip-cache -r requirements-all.txt --pre && \
     deactivate && \
+    mv /tmpvenv/src /src-cache && \
     rm -rf /tmpvenv && \
     mkdir /code
 

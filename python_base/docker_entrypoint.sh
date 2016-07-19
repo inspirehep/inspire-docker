@@ -27,7 +27,8 @@ set -e
 if [ ! -f /virtualenv/bin/activate ]; then
     virtualenv /virtualenv -p python${INSPIRE_PYTHON_VERSION}
     source /virtualenv/bin/activate
-    pip install --upgrade pip-accel setuptools
+    pip install --upgrade pip setuptools wheel
+    cp -r /src-cache /virtualenv/src
 else
     source /virtualenv/bin/activate
 fi
