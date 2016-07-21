@@ -21,9 +21,9 @@
 # or submit itself to any jurisdiction.
 FROM centos
 
-RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-RUN yum update -y
-RUN yum install -y \
+RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    yum update -y && \
+    yum install -y \
         ImageMagick \
         file \
         git \
@@ -38,8 +38,8 @@ RUN yum install -y \
         postgresql-devel \
         python-pip \
         python-virtualenv \
-        wget \
-        which
+        wget && \
+    yum clean all
 RUN npm install -g npm
 RUN npm install -g \
         node-sass \
