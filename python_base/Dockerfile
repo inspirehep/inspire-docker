@@ -26,12 +26,14 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     yum install -y \
         ImageMagick \
         file \
+        gcc \
         git \
         libffi-devel \
         libxml2-devel \
         libxslt-devel \
         nodejs \
         npm \
+        openssl-devel \
         poppler-utils \
         postgresql \
         postgresql-libs \
@@ -40,7 +42,6 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
         python-virtualenv \
         wget && \
     yum clean all
-RUN npm install -g npm
 RUN npm install -g \
         node-sass \
         clean-css \
