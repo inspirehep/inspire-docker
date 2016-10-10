@@ -34,7 +34,7 @@ help(){
         $(for var in "${REQUIRED_VARS[@]}"; do echo -ne "$var\n        "; done)
 
 EOH
-    exit ${1:-0}
+    exit "${1:-0}"
 }
 
 
@@ -66,7 +66,7 @@ install_docker_compose(){
     retry sudo pip install docker-compose
     # Add docker-compose at the version specified in ENV.
     sudo rm -f /usr/local/bin/docker-compose
-    curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+    curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" > docker-compose
     chmod +x docker-compose
     sudo mv docker-compose /usr/local/bin
     export PATH=$PATH:/usr/local/bin
@@ -143,16 +143,16 @@ run_integration_tests() {
 
 
 parse_options(){
-    local opts=$(\
+    local opts
+    opts=$(\
         getopt \
             --options 'hnuv' \
             --longoptions 'help,no-install-compose,use-existing-next,verbose' \
             --name "$0" \
             -- "$@" \
-    )
+    ) ||  help 1
     local failed=false
     local env_var
-    [[ $? -eq 0 ]] ||  help 1;
     eval set -- "$opts"
     while true; do
         opt="$1"
@@ -183,7 +183,6 @@ parse_options(){
 
 main() {
     parse_options "$@"
-    local skip_compose_install=false
     if [[ "$TRAVIS_BRANCH" != "master" ]]; then
         TEST_TAG="$DOCKER_PROJECT:$DOCKER_IMAGE_TAG"
         CUR_TAG="$DOCKER_PROJECT:dev.$TRAVIS_BRANCH-$DOCKER_IMAGE_TAG"
@@ -203,4 +202,4 @@ main() {
 }
 
 
-main
+main "$@"
