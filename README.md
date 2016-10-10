@@ -38,7 +38,7 @@ Building the images is as easy as running the docker build with the appropiate
 tag, for example:
 
 ```shell
-docker build -f python-base/Dockerfile -t inspirehep/python-base
+docker build -f python_base/Dockerfile -t inspirehep/python-base
 ```
 
 Or alternatively run the build script, setting up any required env vars (see
@@ -48,7 +48,7 @@ the .travis.yml for the latest possible values):
 export TRAVIS_BRANCH=master
 export DOCKER_PROJECT=inspirehep/python-base
 export DOCKER_IMAGE_TAG=latest
-export DOCKERFILE=python-base/Dockerfile
+export DOCKERFILE=python_base/Dockerfile
 ARGS='--build-arg=INSPIRE_PYTHON_VERSION=2.7'
 ./build.sh --help
 ./build.sh
