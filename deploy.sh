@@ -28,7 +28,7 @@ retry docker login \
     "--username=$DOCKER_USERNAME"
 
 echo "Pushing image to ${REMOTE_TAG}"
-retry docker push ${REMOTE_TAG}
+retry docker push "${REMOTE_TAG}"
 
 echo "Logging out"
 retry docker logout

@@ -23,7 +23,7 @@ help(){
         $(for var in "${REQUIRED_VARS[@]}"; do echo -ne "$var\n        "; done)
 
 EOH
-    exit ${1:-0}
+    exit "${1:-0}"
 }
 
 
@@ -36,16 +36,16 @@ retry() {
 
 
 parse_options(){
-    local opts=$(\
+    local opts
+    opts=$(\
         getopt \
             --options 'hv' \
             --longoptions 'help,verbose' \
             --name "$0" \
             -- "$@" \
-    )
+    ) ||  help 1
     local failed=false
     local env_var
-    [[ $? -eq 0 ]] ||  help 1;
     eval set -- "$opts"
     while true; do
         opt="$1"
