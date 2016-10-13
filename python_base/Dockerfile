@@ -43,7 +43,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
         wget && \
     yum clean all
 RUN npm install -g \
-        node-sass \
+        node-sass@3.4.2 \
         clean-css \
         requirejs \
         uglify-js
