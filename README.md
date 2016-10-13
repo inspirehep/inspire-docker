@@ -49,7 +49,7 @@ export TRAVIS_BRANCH=master
 export DOCKER_PROJECT=inspirehep/python-base
 export DOCKER_IMAGE_TAG=latest
 export DOCKERFILE=python_base/Dockerfile
-ARGS='--build-arg=INSPIRE_PYTHON_VERSION=2.7'
+export ARGS='--build-arg=INSPIRE_PYTHON_VERSION=2.7'
 ./build.sh --help
 ./build.sh
 ```
