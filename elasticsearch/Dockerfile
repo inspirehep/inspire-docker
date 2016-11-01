@@ -20,7 +20,7 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-FROM elasticsearch
+FROM elasticsearch:2.4.1
 
 RUN plugin install analysis-icu && \
     plugin install mobz/elasticsearch-head && \
