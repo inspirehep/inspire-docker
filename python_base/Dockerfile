@@ -64,6 +64,8 @@ RUN virtualenv /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     egrep -v '^-e \.\[[a-z]+\]$' requirements.txt >> requirements-all.txt && \
     requirements-builder setup.py -e all -e postgresql >> requirements-all.txt && \
     pip wheel --wheel-dir /pip-cache -r requirements-all.txt --pre && \
+    pip install --find-links /pip-cache -r requirements.txt --pre -e .[tests,crawler] gunicorn --exists-action i && \
+    mkdir /deps && pip freeze > /deps/deps.txt && \
     deactivate && \
     mv /tmpvenv/src /src-cache && \
     rm -rf /tmpvenv && \
