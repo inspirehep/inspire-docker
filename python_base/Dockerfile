@@ -59,13 +59,17 @@ RUN virtualenv /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/requirements.txt && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/setup.py && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/README.rst && \
-    mkdir inspirehep/ && cd inspirehep/ && \
-    wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/inspirehep/version.py && cd /tmp && \
+    mkdir inspirehep/ && \
+    cd inspirehep/ && \
+    wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/inspirehep/version.py && \
+    cd /tmp && \
     egrep -v '^-e \.\[[a-z]+\]$' requirements.txt >> requirements-all.txt && \
     requirements-builder setup.py -e all -e postgresql >> requirements-all.txt && \
     pip wheel --wheel-dir /pip-cache -r requirements-all.txt --pre && \
     pip install --find-links /pip-cache -r requirements.txt --pre -e .[tests,crawler] gunicorn --exists-action i && \
-    mkdir /deps && pip freeze > /deps/deps.txt && \
+    pip uninstall -y Inspirehep && \
+    mkdir /deps && \
+    pip freeze > /deps/deps.txt && \
     deactivate && \
     mv /tmpvenv/src /src-cache && \
     rm -rf /tmpvenv && \
