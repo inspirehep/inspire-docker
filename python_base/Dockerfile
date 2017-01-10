@@ -31,6 +31,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
         libffi-devel \
         libxml2-devel \
         libxslt-devel \
+        mailcap \
         nodejs \
         npm \
         openssl-devel \
