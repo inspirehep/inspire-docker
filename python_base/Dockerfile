@@ -26,6 +26,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     yum install -y \
         ImageMagick \
         file \
+        firefox \
         gcc \
         git \
         libffi-devel \
@@ -74,7 +75,8 @@ RUN virtualenv /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     deactivate && \
     mv /tmpvenv/src /src-cache && \
     rm -rf /tmpvenv && \
-    mkdir /code
+    mkdir /code && \
+    dbus-uuidgen > /etc/machine-id
 
 WORKDIR /code
 
