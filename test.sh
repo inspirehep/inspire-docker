@@ -188,11 +188,13 @@ main() {
         CUR_TAG="$DOCKER_PROJECT:dev.$TRAVIS_BRANCH-$DOCKER_IMAGE_TAG"
         echo "Adding tag $TEST_TAG to the image for the testing"
         docker tag "$CUR_TAG" "$TEST_TAG"
-        if [[ "$DOCKER_IMAGE_TAG" != "latest" ]]; then
-            LATEST_TAG="$DOCKER_PROJECT:latest"
-            echo "Adding latest tag $LATEST_TAG to the image for the testing"
-            docker tag "$CUR_TAG" "$LATEST_TAG"
-        fi
+    else
+        CUR_TAG="$DOCKER_PROJECT:$DOCKER_IMAGE_TAG"
+    fi
+    if [[ "$DOCKER_IMAGE_TAG" != "latest" ]]; then
+        LATEST_TAG="$DOCKER_PROJECT:latest"
+        echo "Adding latest tag $LATEST_TAG to the image for the testing"
+        docker tag "$CUR_TAG" "$LATEST_TAG"
     fi
     prepare
     pull_all_images_except "$DOCKER_PROJECT"
