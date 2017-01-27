@@ -9,12 +9,12 @@ To grab a Python image having (almost) all the dependencies cached for `pip-acce
 In which you can install the overlay:
 
 ```shell
-docker pull inspirehep/python_base:latest
+docker pull inspirehep/python-base:latest
 ```
 
 If you want a specific Python version you can do:
 ```shell
-docker pull inspirehep/python_base:python2.7
+docker pull inspirehep/python-base:python2.7
 ```
 
 Python 3.5 is still not compatible.
