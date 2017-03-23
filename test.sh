@@ -76,6 +76,9 @@ install_docker_compose(){
 clone_next(){
     rm -rf "$NEXT_DIR"
     git clone https://github.com/inspirehep/inspire-next.git "$NEXT_DIR"
+    # TODO remove once it's merged
+    git fetch origin refs/pull/2124
+    git reset --hard FETCH_HEAD
 }
 
 

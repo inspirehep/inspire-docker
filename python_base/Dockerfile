@@ -51,10 +51,13 @@ RUN npm install -g \
         requirejs \
         uglify-js
 
+RUN mkdir /code /deps /tmpvenv /src-cache /pip-cache
+
+
 ARG INSPIRE_PYTHON_VERSION
 ENV INSPIRE_PYTHON_VERSION ${INSPIRE_PYTHON_VERSION:-2.7}
 
-RUN virtualenv /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
+RUN virtualenv -v /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     . /tmpvenv/bin/activate && \
     pip install --upgrade pip && \
     pip install --upgrade setuptools wheel && \
@@ -72,13 +75,16 @@ RUN virtualenv /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     pip wheel --wheel-dir /pip-cache -r requirements-all.txt --pre && \
     pip install --find-links /pip-cache -r requirements.txt --pre -e .[tests,crawler,docs] gunicorn --exists-action i && \
     pip uninstall -y Inspirehep && \
-    mkdir /deps && \
     pip freeze > /deps/deps.txt && \
     deactivate && \
     mv /tmpvenv/src /src-cache && \
     rm -rf /tmpvenv && \
-    mkdir /code && \
     dbus-uuidgen > /etc/machine-id
+
+
+RUN useradd test
+RUN chown -R test:test /code /deps /src-cache /pip-cache
+USER test
 
 WORKDIR /code
 

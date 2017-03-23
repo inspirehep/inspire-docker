@@ -24,16 +24,18 @@
 
 set -e
 
-if [ ! -f /virtualenv/bin/activate ]; then
-    virtualenv /virtualenv -p python${INSPIRE_PYTHON_VERSION}
-    source /virtualenv/bin/activate
+VENV_PATH=/virtualenv
+
+if ! [[ -f "$VENV_PATH/bin/activate" ]]; then
+    virtualenv "$VENV_PATH" -p "python${INSPIRE_PYTHON_VERSION}"
+    source "$VENV_PATH"/bin/activate
     pip install --upgrade pip
     pip install --upgrade setuptools wheel
-    cp -r /src-cache /virtualenv/src
+    cp -r /src-cache "$VENV_PATH"/src
 else
-    source /virtualenv/bin/activate
+    source "$VENV_PATH"/bin/activate
 fi
 
-find \( -name __pycache__ -o -name '*.pyc' \) | xargs rm -rf
+find \( -name __pycache__ -o -name '*.pyc' \) -delete
 
 exec "$@"
