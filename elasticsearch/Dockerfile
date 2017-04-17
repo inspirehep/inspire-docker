@@ -24,6 +24,6 @@ FROM elasticsearch:2.4.1
 
 RUN plugin install analysis-icu && \
     plugin install mobz/elasticsearch-head && \
-    plugin install royrusso/elasticsearch-HQ && \
+    plugin install royrusso/elasticsearch-HQ/v2.0.3 && \
     plugin install analysis-phonetic && \
     plugin install -b mapper-attachments
