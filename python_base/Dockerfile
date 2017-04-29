@@ -84,10 +84,12 @@ RUN virtualenv -v /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
 
 RUN useradd test
 RUN chown -R test:test /code /deps /src-cache /pip-cache
-USER test
-
-WORKDIR /code
-
+# This allows us to change the venv rights after it has been created
 ADD ./python_base/docker_entrypoint.sh /docker_entrypoint.sh
+ADD ./python_base/fix_venv_rights /fix_venv_rights
+RUN chmod 4755 /fix_venv_rights
+
+USER test
+WORKDIR /code
 ENTRYPOINT ["/docker_entrypoint.sh"]
 CMD true
