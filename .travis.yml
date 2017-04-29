@@ -39,7 +39,6 @@ matrix:
 
 script:
   - chmod +x *.sh
-  - mkdir -p "$DOCKER_DATA"
   - ./build.sh && ./test.sh -v && ./deploy.sh
 
 notifications:
