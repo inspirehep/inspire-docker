@@ -70,6 +70,15 @@ parse_options(){
 }
 
 
+build_venv_rights_fixer() {
+    cd python_base
+    gcc -o fix_venv_rights fix_venv_rights.c
+    local res=$?
+    cd -
+    return "$res"
+}
+
+
 main(){
     parse_options "$@"
     # fail on unset variables expansion
@@ -80,6 +89,9 @@ main(){
     else
         TAG="$DOCKER_PROJECT:dev.$TRAVIS_BRANCH-$DOCKER_IMAGE_TAG"
     fi
+
+    echo "Building venv rights fixer binary"
+    build_venv_rights_fixer
 
     echo "Building image $TAG"
     retry docker build -f "$DOCKERFILE" $ARGS -t "$TAG" .
