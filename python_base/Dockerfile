@@ -60,7 +60,7 @@ ENV INSPIRE_PYTHON_VERSION ${INSPIRE_PYTHON_VERSION:-2.7}
 RUN virtualenv -v /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     . /tmpvenv/bin/activate && \
     pip install --upgrade pip && \
-    pip install --upgrade setuptools wheel && \
+    pip install --upgrade 'setuptools<36' wheel && \
     pip install --upgrade requirements-builder && \
     cd /tmp && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/requirements.txt && \
