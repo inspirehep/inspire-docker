@@ -64,7 +64,7 @@ prepare_venv() {
     virtualenv "$VENV_PATH" -p "python${INSPIRE_PYTHON_VERSION}"
     source "$VENV_PATH"/bin/activate
     pip install --upgrade pip
-    pip install --upgrade 'setuptools<36' wheel
+    pip install --upgrade setuptools wheel
     cp -r /src-cache "$VENV_PATH"/src
 }
 
