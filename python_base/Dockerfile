@@ -28,6 +28,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
         file \
         firefox \
         gcc \
+        gcc-c++ \
         git \
         libffi-devel \
         libxml2-devel \
