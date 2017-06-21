@@ -72,7 +72,7 @@ parse_options(){
 
 build_venv_rights_fixer() {
     cd python_base
-    gcc -o fix_venv_rights fix_venv_rights.c
+    gcc -o fix_rights fix_rights.c
     local res=$?
     cd -
     return "$res"
