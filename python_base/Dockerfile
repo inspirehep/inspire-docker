@@ -44,6 +44,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
         postgresql-devel \
         python-pip \
         python-virtualenv \
+        xrootd-python \
         wget && \
     yum clean all
 RUN npm install -g \
