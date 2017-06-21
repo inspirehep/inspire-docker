@@ -37,7 +37,8 @@ restore_venv_rights() {
     if [[ "$BASE_USER_UID" != "" ]]; then
         BASE_USER_GID="${BASE_USER_GID:-$BASE_USER_UID}"
         echo "Restoring permissions of venv to $BASE_USER_UID:$BASE_USER_GID"
-        /fix_venv_rights "$BASE_USER_UID:$BASE_USER_GID"
+        /fix_rights --virtualenv "$BASE_USER_UID:$BASE_USER_GID"
+        /fix_rights --codedir "$BASE_USER_UID:$BASE_USER_GID"
     else
         echo "No BASE_USER_UID env var defined, skipping venv permission" \
             "restore."
@@ -70,7 +71,8 @@ prepare_venv() {
 
 
 main() {
-    /fix_venv_rights 'test:test'
+    /fix_rights --virtualenv 'test:test'
+    /fix_rights --codedir 'test:test'
     trap restore_venv_rights EXIT
 
     if ! [[ -f "$VENV_PATH/bin/activate" ]]; then
