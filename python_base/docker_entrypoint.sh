@@ -71,8 +71,8 @@ prepare_venv() {
 
 
 main() {
-    /fix_rights --virtualenv 'test:test'
-    /fix_rights --codedir 'test:test'
+    /fix_rights --virtualenv 'test:test' || :
+    /fix_rights --codedir 'test:test' || :
     trap restore_venv_rights EXIT
 
     if ! [[ -f "$VENV_PATH/bin/activate" ]]; then
@@ -81,7 +81,7 @@ main() {
         source "$VENV_PATH"/bin/activate
     fi
 
-    find \( -name __pycache__ -o -name '*.pyc' \) -delete
+    find \( -name __pycache__ -o -name '*.pyc' \) -delete || :
 
     trap forward_sigterm SIGTERM
     trap forward_sigint SIGINT
