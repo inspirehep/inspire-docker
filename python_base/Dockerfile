@@ -21,9 +21,6 @@
 # or submit itself to any jurisdiction.
 FROM centos
 
-# For the strange http-parser dependency, see:
-#     https://bugzilla.redhat.com/show_bug.cgi?id=1481008
-
 RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
     yum update -y && \
     yum install -y \
@@ -48,9 +45,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
         python-pip \
         python-virtualenv \
         xrootd-python \
-        wget \
-        https://kojipkgs.fedoraproject.org//packages/http-parser/2.7.1/3.el7/x86_64/http-parser-2.7.1-3.el7.x86_64.rpm \
-        && \
+        wget && \
     yum clean all
 RUN npm install -g \
         node-sass@3.8.0 \
