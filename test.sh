@@ -120,7 +120,7 @@ run_unit_tests() {
     docker images
     echo "----------------"
     retry docker-compose -f docker-compose.deps.yml run --rm pip
-    docker-compose -f docker-compose.deps.yml run --rm assets
+    retry docker-compose -f docker-compose.deps.yml run --rm assets
     docker-compose -f docker-compose.test.yml run --rm unit
     cleanup_env
     echo "#################"
@@ -135,7 +135,7 @@ run_integration_tests() {
     docker images
     echo "----------------"
     retry docker-compose -f docker-compose.deps.yml run --rm pip
-    docker-compose -f docker-compose.deps.yml run --rm assets
+    retry docker-compose -f docker-compose.deps.yml run --rm assets
     docker-compose -f docker-compose.test.yml run --rm integration
     cleanup_env
     echo "#################"
