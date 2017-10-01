@@ -76,7 +76,7 @@ RUN virtualenv -v /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     egrep -v '^-e \.\[[a-z]+\]$' requirements.txt >> requirements-all.txt && \
     requirements-builder setup.py -e all -e postgresql >> requirements-all.txt && \
     pip wheel --wheel-dir /pip-cache -r requirements-all.txt --pre && \
-    pip install --find-links /pip-cache -r requirements.txt --pre -e .[tests,crawler,docs] gunicorn --exists-action i && \
+    pip install --editable .[all] --find-links /pip-cache --pre --requirement requirements.txt && \
     pip uninstall -y Inspirehep && \
     pip freeze > /deps/deps.txt && \
     deactivate && \
