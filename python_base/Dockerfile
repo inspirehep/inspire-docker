@@ -25,6 +25,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
     yum update -y && \
     yum install -y \
         ImageMagick \
+        transfig \
         file \
         firefox \
         gcc \
