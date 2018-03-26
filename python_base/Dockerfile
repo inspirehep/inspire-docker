@@ -47,6 +47,7 @@ RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.n
         python-virtualenv \
         xrootd-python \
         wget \
+        Xvfb \
         && \
     yum clean all
 RUN npm install -g \
