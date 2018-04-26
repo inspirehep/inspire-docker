@@ -46,19 +46,8 @@ retry() {
 }
 
 
-utils.in(){
-    local what="$1"
-    shift
-    local where=("$@")
-    for key in "${where[@]}"; do
-        [[ "$what" == "$key" ]] && return 0
-    done
-    return 1
-}
-
-
-get_images(){
-    grep -ohP "(?<=image: ).*" "$NEXT_DIR/"*.yml | sort | uniq
+get_external_images(){
+    grep -ohP "(?<=image: ).*" "$NEXT_DIR/"*.yml |  grep -v "^inspirehep" | sort | uniq
 }
 
 
@@ -74,7 +63,7 @@ install_docker_compose(){
 
 
 clone_next(){
-    rm -rf "$NEXT_DIR"
+    sudo rm -rf "$NEXT_DIR"
     git clone https://github.com/inspirehep/inspire-next.git "$NEXT_DIR"
 }
 
@@ -98,14 +87,12 @@ cleanup_env() {
 }
 
 
-pull_all_images_except(){
-    local to_skip=("$@")
-    local images=($(get_images))
+pull_all_external_images(){
+    local images=($(get_external_images))
     local image
     echo "##### Pulling the docker images"
     cd "$NEXT_DIR"
     for image in "${images[@]}"; do
-        utils.in "$image" "${to_skip[@]}" && continue
         retry docker pull "$image"
     done
     echo "#################"
@@ -197,7 +184,7 @@ main() {
         docker tag "$CUR_TAG" "$LATEST_TAG"
     fi
     prepare
-    pull_all_images_except "$DOCKER_PROJECT"
+    pull_all_external_images
     run_unit_tests
     run_integration_tests
     echo "==================  SUCCESS"

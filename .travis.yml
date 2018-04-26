@@ -14,27 +14,9 @@ env:
 
 
 
-matrix:
-  include:
-  - env:
-    - DOCKER_PROJECT=inspirehep/python-base
-    - DOCKER_IMAGE_TAG=2.7
-    - DOCKERFILE=python_base/Dockerfile
-    - ARGS='--build-arg=INSPIRE_PYTHON_VERSION=2.7'
-  - env:
-    - DOCKER_PROJECT=inspirehep/python-base
-    - DOCKER_IMAGE_TAG=latest
-    - DOCKERFILE=python_base/Dockerfile
-    - ARGS='--build-arg=INSPIRE_PYTHON_VERSION=2.7'
-  - env:
-    - DOCKER_PROJECT=inspirehep/elasticsearch
-    - DOCKER_IMAGE_TAG=latest
-    - DOCKERFILE=elasticsearch/Dockerfile
-    - ARGS=''
-
 script:
-  - chmod +x *.sh
-  - ./build.sh && ./test.sh -v && ./deploy.sh
+- chmod +x *.sh
+- ./travis.sh
 
 notifications:
   webhooks:
@@ -44,4 +26,4 @@ notifications:
     on_failure: always  # options: [always|never|change] default: always
     on_start: never     # options: [always|never|change] default: always
   email:
-    - inspire-adimn@cern.ch
+    - inspire-admin@cern.ch
