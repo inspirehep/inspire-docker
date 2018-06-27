@@ -52,7 +52,7 @@ int main (int argc, char *argv[]) {
         fprintf(stderr, "Bad option %s.", argv[1]);
         fprintf(
             stderr,
-            "Usage: %s --virtualenv|--codedir <user>:<gorup>\n",
+            "Usage: %s --virtualenv|--codedir <user>:<group>\n",
             argv[0]
         );
         exit(EXIT_FAILURE);
