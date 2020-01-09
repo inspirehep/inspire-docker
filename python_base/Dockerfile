@@ -64,10 +64,10 @@ ENV INSPIRE_PYTHON_VERSION ${INSPIRE_PYTHON_VERSION:-2.7}
 
 RUN virtualenv -v /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     . /tmpvenv/bin/activate && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools wheel && \
-    pip install --upgrade requirements-builder && \
-    pip install --upgrade poetry && \
+    pip install -q --upgrade pip && \
+    pip install -q --upgrade setuptools wheel && \
+    pip install -q --upgrade requirements-builder && \
+    pip install -q --upgrade poetry && \
     cd /tmp && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/pyproject.toml && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/poetry.lock && \
@@ -78,8 +78,8 @@ RUN virtualenv -v /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/inspirehep/version.py && \
     cd /tmp && \
     poetry export --without-hashes -E all -f requirements.txt > requirements.poetry.txt && \
-    pip install --quite --requirement requirements.poetry.txt && \
-    pip install --ignore-installed -e . && \
+    pip install -q --requirement requirements.poetry.txt && \
+    pip install -q --ignore-installed -e . && \
     pip uninstall -y Inspirehep && \
     pip freeze > /deps/deps.txt && \
     deactivate && \
