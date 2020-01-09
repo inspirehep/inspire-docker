@@ -67,18 +67,19 @@ RUN virtualenv -v /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     pip install --upgrade pip && \
     pip install --upgrade setuptools wheel && \
     pip install --upgrade requirements-builder && \
+    pip install --upgrade poetry && \
     cd /tmp && \
-    wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/requirements.txt && \
+    wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/pyproject.toml && \
+    wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/poetry.lock && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/setup.py && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/README.rst && \
     mkdir inspirehep/ && \
     cd inspirehep/ && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/inspirehep/version.py && \
     cd /tmp && \
-    egrep -v '^-e \.\[[a-z]+\]$' requirements.txt >> requirements-all.txt && \
-    requirements-builder setup.py -e all -e postgresql >> requirements-all.txt && \
-    pip wheel --wheel-dir /pip-cache -r requirements-all.txt --pre && \
-    pip install --editable .[all] --find-links /pip-cache --pre --requirement requirements.txt && \
+    poetry export --without-hashes -E all -f requirements.txt > requirements.poetry.txt && \
+    pip install --requirement requirements.poetry.txt && \
+    pip install --ignore-installed -e . && \
     pip uninstall -y Inspirehep && \
     pip freeze > /deps/deps.txt && \
     deactivate && \

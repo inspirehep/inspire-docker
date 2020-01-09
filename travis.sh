@@ -50,20 +50,20 @@ conf_elasticsearch7() {
     export ARGS=''
 }
 
+conf_elasticsearch; ./build.sh
+conf_elasticsearch5; ./build.sh
+conf_elasticsearch7; ./build.sh
 conf_python_base_versioned; ./build.sh
 conf_python_base_latest; ./build.sh
 conf_python_base_test_versioned; ./build.sh
 conf_python_base_test_latest; ./build.sh
-conf_elasticsearch; ./build.sh
-conf_elasticsearch5; ./build.sh
-conf_elasticsearch7; ./build.sh
 
 ./test.sh
 
+conf_elasticsearch; ./deploy.sh
+conf_elasticsearch5; ./deploy.sh
+conf_elasticsearch7; ./deploy.sh
 conf_python_base_versioned; ./deploy.sh
 conf_python_base_latest; ./deploy.sh
 conf_python_base_test_versioned; ./deploy.sh
 conf_python_base_test_latest; ./deploy.sh
-conf_elasticsearch; ./deploy.sh
-conf_elasticsearch5; ./deploy.sh
-conf_elasticsearch7; ./deploy.sh
