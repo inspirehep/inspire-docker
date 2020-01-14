@@ -77,10 +77,8 @@ RUN virtualenv -v /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     cd inspirehep/ && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/inspirehep/version.py && \
     cd /tmp && \
-    poetry export --without-hashes -E all -f requirements.txt > requirements.poetry.txt && \
-    pip install -q --requirement requirements.poetry.txt && \
-    pip install -q --ignore-installed -e . && \
-    pip uninstall -y Inspirehep && \
+    poetry export --no-ansi --without-hashes -E all -E xrootd -f requirements.txt > requirements.poetry.txt && \
+    pip install -q -q -q --requirement requirements.poetry.txt && \
     pip freeze > /deps/deps.txt && \
     deactivate && \
     mv /tmpvenv/src /src-cache && \
