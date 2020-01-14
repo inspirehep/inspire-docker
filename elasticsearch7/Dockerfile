@@ -20,7 +20,7 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-FROM elasticsearch:7.5.0
+FROM elasticsearch:7.1.1
 
 RUN bin/elasticsearch-plugin install -b analysis-icu && \
     bin/elasticsearch-plugin install -b analysis-phonetic && \
