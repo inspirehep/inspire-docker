@@ -67,7 +67,7 @@ RUN virtualenv -v /tmpvenv -p python${INSPIRE_PYTHON_VERSION} && \
     pip install -q --upgrade pip && \
     pip install -q --upgrade setuptools wheel && \
     pip install -q --upgrade requirements-builder && \
-    pip install -q --upgrade poetry && \
+    pip install -q --upgrade poetry==1.0.0 && \
     cd /tmp && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/pyproject.toml && \
     wget -q https://raw.githubusercontent.com/inspirehep/inspire-next/master/poetry.lock && \
